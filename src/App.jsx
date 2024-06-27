@@ -10,6 +10,15 @@ import { IoKeySharp } from "react-icons/io5";
 
 function App() {
 
+  const handleAddUser = event =>{
+      event.preventDefault();
+      const form = event.target;
+      const name = form.name.value;
+      const email = form.email.value;
+      const password = form.password.value;
+      console.log(name, email, password);
+  }
+
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -19,32 +28,33 @@ function App() {
   }, [])
 
   return (
-    <div className="text-center m-20 md:m-52 text-xl md:text-3xl">
-      <h3 className="rounded-xl font-bold p-5 bg-indigo-400 text-black">*** User Manager ***</h3>
-      <p className="my-3 bg-orange-600 text-white rounded-xl w-2/3 mx-auto p-3">Number of users: {users.length}</p>
+    <div className="text-center m-10 md:m-20 text-xl md:text-3xl mx-auto max-w-7xl">
+      <h3 className="rounded-xl font-bold p-5 bg-indigo-400 text-black w-2/3 mx-auto">*** User Manager ***</h3>
+      <p className="my-3 bg-orange-600 text-white rounded-xl w-1/3 p-3 mx-auto">Number of users: {users.length}</p>
 
       <div className="m-10 w-2/3 mx-auto p-10 border-2 border-red-500 rounded-xl">
-      <h3 className="text-2xl text-center font-bold">Fill up the Form</h3>
-        <label className="input input-bordered border-2 flex items-center gap-2 my-5">
-          <input type="text" className="grow" placeholder="Search" />
-          <IoIosSearch />
-        </label>
-        <label className="input input-bordered border-2 flex items-center gap-2 my-5">
-          <MdOutlineEmail />
-          <input type="text" className="grow" placeholder="Email" />
-        </label>
-        <label className="input input-bordered border-2 flex items-center gap-2 my-5">
-          <FaUser />
-          <input type="text" className="grow" placeholder="Username" />
-        </label>
-        <label className="input input-bordered border-2 flex items-center gap-2 my-5">
-          <IoKeySharp />
-          <input type="password" className="" placeholder="Password" value="" />
-        </label>
-        <button className="btn btn-success w-full ">Success</button>
-
+        <h3 className="text-2xl text-center font-bold">Fill up the Form</h3>
+        <form onSubmit={handleAddUser}>
+          <label className="input input-bordered border-2 flex items-center gap-2 my-5">
+            <input type="text" name="search" className="grow" placeholder="Search" />
+            <IoIosSearch />
+          </label>
+          <label className="input input-bordered border-2 flex items-center gap-2 my-5">
+            <MdOutlineEmail />
+            <input type="email" name="email" className="grow" placeholder="Email" />
+          </label>
+          <label className="input input-bordered border-2 flex items-center gap-2 my-5">
+            <FaUser />
+            <input type="text" name="name" className="grow" placeholder="Username" />
+          </label>
+          <label className="input input-bordered border-2 flex items-center gap-2 my-5">
+            <IoKeySharp />
+            <input type="password" name="password" className="grow" placeholder="Password" />
+          </label>
+          <button className="btn btn-success w-full ">Submit</button>
+        </form>
       </div>
-      <div className="grid grid-cols-3 gap-5 ">
+      <div className="flex flex-wrap gap-5 justify-center">
         {
           users.map(user =>
             <div key={user.id}>
@@ -53,7 +63,7 @@ function App() {
                   <h2 className="text-xl">{user.name}</h2>
                   <p className="text-lg">{user.email}</p>
                   <div className="card-actions justify-center">
-                    <button className="btn border-b-red-600 bg-slate-200">Details</button>
+                    <button className="btn border-b-red-600 bg-slate-200">Show Details</button>
                   </div>
                 </div>
               </div>
