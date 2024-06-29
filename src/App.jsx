@@ -3,20 +3,38 @@ import { useState } from "react"
 import { IoIosSearch } from "react-icons/io";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
-import { IoKeySharp } from "react-icons/io5";
+import { FaPhoneAlt } from "react-icons/fa";
+
 
 
 
 
 function App() {
 
-  const handleAddUser = event =>{
-      event.preventDefault();
-      const form = event.target;
-      const name = form.name.value;
-      const email = form.email.value;
-      const password = form.password.value;
-      console.log(name, email, password);
+  const handleAddUser = event => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const user = { name, email, password };
+
+    fetch('http://localhost:5000/users', {
+      method: "POST",
+      header: {
+        'content-type': "application/json"
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        const newUser = [...users, data]
+        setUsers(newUser);
+        form.reset();
+      }
+      )
+    // 
   }
 
   const [users, setUsers] = useState([])
@@ -48,8 +66,8 @@ function App() {
             <input type="text" name="name" className="grow" placeholder="Username" />
           </label>
           <label className="input input-bordered border-2 flex items-center gap-2 my-5">
-            <IoKeySharp />
-            <input type="password" name="password" className="grow" placeholder="Password" />
+          <FaPhoneAlt />
+            <input type="number" name="number" className="grow" placeholder="Phone Number" />
           </label>
           <button className="btn btn-success w-full ">Submit</button>
         </form>
