@@ -15,6 +15,7 @@ const router = createBrowserRouter([
             {
                 path: "/users",
                 element: <Users />,
+                loader: ()=>fetch('http://localhost:5000/users')
             },
         ]
     },
