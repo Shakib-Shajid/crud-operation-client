@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const Users = () => {
 
@@ -36,7 +36,8 @@ const Users = () => {
                                 <p className="text-lg">{user.email}</p>
                                 <p className="text-lg">{user.number}</p>
                                 <div className="card-actions justify-center">
-                                    <button className="btn hover:bg-green-600 hover:text-white">Update</button>
+                                    <Link to={`/update/${user._id}`}>
+                                    <button className="btn hover:bg-green-600 hover:text-white">Update</button></Link>
 
                                     <button className="btn hover:bg-red-600 hover:text-white"
                                         onClick={() => handleDelete(user._id)}
