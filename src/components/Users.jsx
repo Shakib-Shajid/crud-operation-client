@@ -1,8 +1,29 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const Users = () => {
 
-    const users = useLoaderData()
+    const loadedUsers = useLoaderData();
+    const [users, setUsers] = useState(loadedUsers);
+
+    const handleDelete = _id => {
+        console.log(_id);
+        fetch(`http://localhost:5000/users/${_id}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.deletedCount > 0){
+                    alert('delete successfully');
+                    // delete from ui also
+                    const remaining = users.filter(user => user._id !=_id)
+                    setUsers(remaining);
+                }
+    })
+
+
+    }
     return (
         <div>
             <h3 className="rounded-xl text-center font-bold p-5 bg-indigo-400 text-black w-2/3 mx-auto m-5">*** Total User : {users.length} ***</h3>
@@ -14,9 +35,13 @@ const Users = () => {
                                 <h2 className="text-xl">{user.name}</h2>
                                 <p className="text-lg">{user.email}</p>
                                 <p className="text-lg">{user.number}</p>
-                                {/* <div className="card-actions justify-center">
-                                    <button className="btn border-b-red-600 bg-slate-200">Show Details</button>
-                                </div> */}
+                                <div className="card-actions justify-center">
+                                    <button className="btn hover:bg-green-600 hover:text-white">Update</button>
+
+                                    <button className="btn hover:bg-red-600 hover:text-white"
+                                        onClick={() => handleDelete(user._id)}
+                                    >Delete</button>
+                                </div>
                             </div>
                         </div>
                     )
