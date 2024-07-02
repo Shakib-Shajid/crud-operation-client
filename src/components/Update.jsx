@@ -1,12 +1,16 @@
-import { useLoaderData } from "react-router-dom";
-import { IoIosSearch } from "react-icons/io";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 
 const Update = () => {
 
-    const loadedUsers = useLoaderData()
+    const loadedUsers = useLoaderData();
+    const navigate = useNavigate();
+    // const location = useLocation();
+    // console.log(location);
+
+    // const form = 
     
     const handleUpdate = (event) => {
         event.preventDefault();
@@ -28,7 +32,8 @@ const Update = () => {
             console.log(data);
             if(data.modifiedCount > 0){
               alert("User updated Successfully")
-              form.reset()
+              form.reset();
+              navigate("/users");
             }
           })
       }

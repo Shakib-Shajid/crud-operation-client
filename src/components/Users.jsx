@@ -14,13 +14,13 @@ const Users = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                if(data.deletedCount > 0){
+                if (data.deletedCount > 0) {
                     alert('delete successfully');
                     // delete from ui also
-                    const remaining = users.filter(user => user._id !=_id)
+                    const remaining = users.filter(user => user._id != _id)
                     setUsers(remaining);
                 }
-    })
+            })
 
 
     }
@@ -37,8 +37,7 @@ const Users = () => {
                                 <p className="text-lg">{user.number}</p>
                                 <div className="card-actions justify-center">
                                     <Link to={`/update/${user._id}`}>
-                                    <button className="btn hover:bg-green-600 hover:text-white">Update</button></Link>
-
+                                        <button className="btn hover:bg-green-600 hover:text-white">Update</button></Link>
                                     <button className="btn hover:bg-red-600 hover:text-white"
                                         onClick={() => handleDelete(user._id)}
                                     >Delete</button>
