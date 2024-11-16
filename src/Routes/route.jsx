@@ -23,6 +23,7 @@ const router = createBrowserRouter([
                 element: <Update />,
                 loader: ({params})=>fetch(`http://localhost:5000/users/${params.id}`)
             },
+
         ]
     },
 

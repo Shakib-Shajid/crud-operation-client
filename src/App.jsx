@@ -2,6 +2,7 @@ import { IoIosSearch } from "react-icons/io";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
+import axios from "axios";
 
 
 
@@ -15,21 +16,34 @@ function App() {
     const number = form.number.value;
     const user = { name, email, number };
 
-    fetch('http://localhost:5000/users', {
-      method: "POST",
-      headers: { 
-        'content-type': "application/json"
-       },
-      body: JSON.stringify(user)
-    })
-      .then(res => res.json())
+    // fetch('http://localhost:5000/users', {
+    //   method: "POST",
+    //   headers: { 
+    //     'content-type': "application/json"
+    //    },
+    //   body: JSON.stringify(user)
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data);
+    // if(data.insertedId){
+    //   alert("add successfully")
+    //   form.reset()
+    // }
+    //   })
+
+
+
+    axios.post('http://localhost:5000/users', user)
       .then(data => {
-        console.log(data);
-        if(data.insertedId){
+        console.log(data)
+        if (data.data.insertedId) {
           alert("add successfully")
           form.reset()
         }
-      })
+      }
+      )
+      .catch(error => console.log(error))
   }
 
 
@@ -41,7 +55,7 @@ function App() {
       <div className="m-5 w-2/3 mx-auto p-10 border-2 border-red-500 rounded-xl">
         <h3 className="text-2xl text-center font-bold">Fill up the Form</h3>
         <form onSubmit={handleAddUser}>
-        <label className="input input-bordered border-2 flex items-center gap-2 my-5">
+          <label className="input input-bordered border-2 flex items-center gap-2 my-5">
             <input type="text" name="search" className="grow" placeholder="Search" />
             <IoIosSearch />
           </label>
