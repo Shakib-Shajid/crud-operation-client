@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
@@ -8,19 +9,30 @@ const Users = () => {
 
     const handleDelete = _id => {
         console.log(_id);
-        fetch(`http://localhost:5000/users/${_id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
+        // fetch(`http://localhost:5000/users/${_id}`, {
+        //     method: "DELETE"
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         if (data.deletedCount > 0) {
+        //             alert('delete successfully');
+        //             // delete from ui also
+        //             const remaining = users.filter(user => user._id != _id)
+        //             setUsers(remaining);
+        //         }
+        //     })
+
+        axios.delete(`http://localhost:5000/users/${_id}`)
             .then(data => {
-                console.log(data);
-                if (data.deletedCount > 0) {
+                if (data.data.deletedCount > 0) {
                     alert('delete successfully');
                     // delete from ui also
                     const remaining = users.filter(user => user._id != _id)
                     setUsers(remaining);
                 }
             })
+            .catch(error => console.log(error))
 
 
     }
